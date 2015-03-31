@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
-namespace WebApplication1
+using GeetestSDK;
+namespace demo
 {
     public partial class login : System.Web.UI.Page
     {
@@ -13,17 +13,15 @@ namespace WebApplication1
         {
 
         }
-
         protected void submitBtn_Click(object sender, EventArgs e)
         {
             String privateKey = "0f1a37e33c9ed10dd2e133fe2ae9c459";
-            GeetestLib geetest = new GeetestLib(privateKey);
-
+            GeetestLib geetest =new GeetestLib(privateKey);
             Boolean result = geetest.validate(
-                Request.Params["geetest_challenge"],
-                Request.Params["geetest_validate"],
-                Request.Params["geetest_seccode"]
-             );
+            Request.Params["geetest_challenge"],
+            Request.Params["geetest_validate"],
+            Request.Params["geetest_seccode"]
+            );
             if (result)
             {
                 //验证正确后的操作

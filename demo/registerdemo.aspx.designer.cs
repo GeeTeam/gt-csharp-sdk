@@ -7,10 +7,10 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace WebApplication1 {
+namespace demo {
     
     
-    public partial class login {
+    public partial class registerdemo {
         
         /// <summary>
         /// form1 控件。
