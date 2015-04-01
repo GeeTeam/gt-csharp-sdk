@@ -18,6 +18,7 @@ namespace GeetestSDK
         private String host = "http://api.geetest.com";
         private String productType;
         private String popupBtnID;
+        private String version = "2.15.4.1";
         public String ProductType 
         {
             set { this.productType = value; }
@@ -39,7 +40,7 @@ namespace GeetestSDK
             this.privateKey = privateKey;
         }
 
-        public String getGtFrontSource()
+        public String getGTApiUrl()
         {
             String frontSource = string.Format("{0}/get.php?gt={1}&challenge={2}", this.host, this.captchaID, this.challenge);
             if (this.productType !=null)
@@ -106,12 +107,12 @@ namespace GeetestSDK
             return false;
         }
 
-        public int register()
+        public Boolean register()
         {
             String path = "/register.php";
             if (this.captchaID == null)
             {
-                Console.WriteLine(@"publicKey is null!");
+                Console.WriteLine("publicKey is null!");
             } 
             else
             {
@@ -119,7 +120,7 @@ namespace GeetestSDK
                 if (challenge.Length == 32)
                 {
                     this.challenge = challenge;
-                    return 0;
+                    return true;
                 }
                 else
                 {
@@ -127,7 +128,7 @@ namespace GeetestSDK
                 }
             }
 
-            return 1;
+            return false;
             
         }
 
@@ -158,6 +159,7 @@ namespace GeetestSDK
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
+            data = data + "&sdklang=csharp&sdk=" + this.version;
             request.ContentLength = Encoding.UTF8.GetByteCount(data);
             // 发送数据
             Stream myRequestStream = request.GetRequestStream();

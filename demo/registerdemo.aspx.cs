@@ -19,8 +19,16 @@ namespace demo
             String private_key = "0f1a37e33c9ed10dd2e133fe2ae9c459";
             String captcha_id = "a40fd3b0d712165c5d13e6f747e948d4";
             GeetestLib geetest = new GeetestLib(private_key, captcha_id);
-            geetest.register();
-            return geetest.getGtFrontSource();
+            if (geetest.register())
+            {
+                return geetest.getGTApiUrl();
+            }
+            else
+            {
+                //TODO
+                return "";
+            }
+            
         }
 
         protected void submitBtn_Click(object sender, EventArgs e)
