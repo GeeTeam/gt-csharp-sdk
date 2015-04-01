@@ -18,7 +18,7 @@ namespace GeetestSDK
         private String host = "http://api.geetest.com";
         private String productType;
         private String popupBtnID;
-        private String version = "2.15.4.1";
+        private String version = "2.15.4.1.1";
         public String ProductType 
         {
             set { this.productType = value; }
@@ -63,7 +63,7 @@ namespace GeetestSDK
             int port = 80;
             if (validate.Length > 0 && checkResultByPrivate(challenge, validate))
             {
-                String query = "seccode=" + seccode;
+                String query = "seccode=" + seccode + "&sdk=csharp_" + this.version;
                 String response = "";
                 try
                 {
@@ -159,7 +159,6 @@ namespace GeetestSDK
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
-            data = data + "&sdklang=csharp&sdk=" + this.version;
             request.ContentLength = Encoding.UTF8.GetByteCount(data);
             // 发送数据
             Stream myRequestStream = request.GetRequestStream();
