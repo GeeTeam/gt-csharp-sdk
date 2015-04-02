@@ -18,7 +18,13 @@ namespace GeetestSDK
         private String host = "http://api.geetest.com";
         private String productType;
         private String popupBtnID;
-        private String version = "2.15.4.1.1";
+        private String version = "2.15.4.2.1";
+        private Boolean https = false;
+        public Boolean Https
+        {
+            set { this.https = value; }
+            get { return this.Https; }
+        }
         public String ProductType 
         {
             set { this.productType = value; }
@@ -42,7 +48,12 @@ namespace GeetestSDK
 
         public String getGTApiUrl()
         {
-            String frontSource = string.Format("{0}/get.php?gt={1}&challenge={2}", this.host, this.captchaID, this.challenge);
+            String http = "http";
+            if (this.https)
+            {
+                http = http + "s";
+            }
+            String frontSource = string.Format("{0}://api.geetest.com/get.php?gt={1}&challenge={2}", http, this.captchaID, this.challenge);
             if (this.productType !=null)
             {
                 if (this.productType.Equals("popup"))
