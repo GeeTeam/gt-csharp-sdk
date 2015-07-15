@@ -65,11 +65,28 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="failbackdemo.aspx" />
+    <Content Include="failback_login.aspx" />
     <Content Include="login.aspx" />
     <Content Include="registerdemo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="failbackdemo.aspx.cs">
+      <DependentUpon>failbackdemo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="failbackdemo.aspx.designer.cs">
+      <DependentUpon>failbackdemo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="failback_login.aspx.cs">
+      <DependentUpon>failback_login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="failback_login.aspx.designer.cs">
+      <DependentUpon>failback_login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GeetestConfig.cs" />
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

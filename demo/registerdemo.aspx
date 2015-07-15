@@ -16,7 +16,7 @@
           <td>密码</td><td><input type="password"/></td>
        </tr>
        <tr>
-          <td colspan="2"><script type="text/javascript" src="<%=getGTFront()%>">"></script></td>
+          <td colspan="2"><%=getGTFront()%></td>
        </tr>
        <tr>
           <td>

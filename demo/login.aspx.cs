@@ -17,11 +17,7 @@ namespace demo
         {
             String privateKey = "0f1a37e33c9ed10dd2e133fe2ae9c459";
             GeetestLib geetest =new GeetestLib(privateKey);
-            Boolean result = geetest.validate(
-            Request.Params["geetest_challenge"],
-            Request.Params["geetest_validate"],
-            Request.Params["geetest_seccode"]
-            );
+            Boolean result = geetest.validate(Request);
             if (result)
             {
                 //验证正确后的操作
