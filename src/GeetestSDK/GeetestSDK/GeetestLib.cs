@@ -15,7 +15,7 @@ namespace GeetestSDK
     public class GeetestLib
     {
         //SDK版本以及名称
-        public const String version = "2.15.7.15.1";
+        public const String version = "2.15.7.23.1";
         public const String sdkLang = "csharp";
        
         protected const String baseUrl = "api.geetest.com";
@@ -228,7 +228,7 @@ namespace GeetestSDK
                 String response = "";
                 try
                 {
-                    response = postValidate(GeetestLib.baseUrl, path, query, GeetestLib.hostPort);
+                    response = postValidate(this.host, path, query, GeetestLib.hostPort);
                 }
                 catch (Exception e)
                 {
@@ -255,7 +255,7 @@ namespace GeetestSDK
                 String response = "";
                 try
                 {
-                    response = postValidate(GeetestLib.baseUrl, path, query, GeetestLib.hostPort);
+                    response = postValidate(this.host, path, query, GeetestLib.hostPort);
                 }
                 catch (Exception e)
                 {
