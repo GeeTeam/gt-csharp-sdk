@@ -15,7 +15,7 @@ namespace GeetestSDK
     public class GeetestLib
     {
         //SDK版本以及名称
-        public const String version = "2.15.7.23.1";
+        public const String version = "2.15.9.23.1";
         public const String sdkLang = "csharp";
        
         protected const String baseUrl = "api.geetest.com";
@@ -89,22 +89,22 @@ namespace GeetestSDK
         {
             this.privateKey = privateKey;
         }
-
+        //将当前实例设置到session中
         public void setGtSession(HttpSessionState session)
         {
             session.Add(GeetestLib.gtSessionKey, this);
         }
-
+        //极验服务器的gt-server状态值
         public void setGtServerStatusSession(HttpSessionState session, int statusCode)
         {
             session.Add(GeetestLib.gtServerStatusSessionKey, statusCode);
         }
-
+        //获取session
         public static GeetestLib getGtSession(HttpSessionState session)
         {
             return (GeetestLib) session.Contents[GeetestLib.gtSessionKey];
         }
-
+        //获取gt-server状态值,0表示不正常，1表示正常
         public static int getGtServerStatusSession(HttpSessionState session)
         {
             return (int) session.Contents[GeetestLib.gtServerStatusSessionKey];
@@ -116,7 +116,7 @@ namespace GeetestSDK
             int randRes = rand.Next(100);
             return randRes;
         }
-
+        //生成动态前端源码
         public String getGTApiUrl()
         {
             String frontSource = string.Format("<script type=\"text/javascript\" src=\"{0}/get.php?"
@@ -139,7 +139,7 @@ namespace GeetestSDK
             if (this.register()) return true;
             return false;
         }
-
+        //预处理失败后的返回格式串
         public String getFailPreProcessRes()
         {
             int rand1 = this.getRandomNum();
@@ -152,14 +152,14 @@ namespace GeetestSDK
                  "\"success\":{0},\"gt\":\"{1}\",\"challenge\":\"{2}\"", 0,
                 this.captchaID, this.challenge)+"}";
         }
-
+        //预处理成功后的标准串
         public String getSuccessPreProcessRes()
         {
             return "{" + string.Format(
                 "\"success\":{0},\"gt\":\"{1}\",\"challenge\":\"{2}\"", 1, 
                 this.captchaID, this.challenge) + "}";
         }
-
+        //failback使用的验证方式
         public String failbackValidateRequest(HttpRequest request)
         {
             if (!this.requestIsLegal(request)) return GeetestLib.failResult;
@@ -186,7 +186,7 @@ namespace GeetestSDK
 
             return validateResult;
         }
-
+        //failback模式下，判断验证是否通过
         private String validateFailImage(int ans, int full_bg_index, int img_grp_index)
         {
             const int thread = 3;
@@ -205,7 +205,7 @@ namespace GeetestSDK
             if (Math.Abs(ans - result) < thread) return GeetestLib.successResult;
             else return GeetestLib.failResult;
         }
-
+        //判断request参数是否合法
         private Boolean requestIsLegal(HttpRequest request)
         {
             String challenge = request.Params[GeetestLib.fnGeetestChallenge];
@@ -214,7 +214,7 @@ namespace GeetestSDK
             if (challenge.Equals(string.Empty) || validate.Equals(string.Empty) || seccode.Equals(string.Empty)) return false;
             return true;
         }
-
+        //旧的validate方法
         public Boolean validate(HttpRequest request)
         {
             if (!this.requestIsLegal(request)) return false;
@@ -241,7 +241,7 @@ namespace GeetestSDK
             }
             return false;
         }
-
+        //增强版的验证信息,提供了更多的验证返回结果信息，以让客户服务器端有不同的数据处理。
         public String enhencedValidateRequest(HttpRequest request)
         {
             if (!this.requestIsLegal(request)) return GeetestLib.failResult;
@@ -268,7 +268,7 @@ namespace GeetestSDK
             }
             return GeetestLib.failResult;
         }
-
+        //获取极验的服务器状态
         public Boolean getGtServerStatus()
         {
             String path = "/check_status.php";
@@ -308,7 +308,7 @@ namespace GeetestSDK
            }
 
         }
-
+        //向gt-server请求一个challenge
         public Boolean register()
         {
             String path = "/register.php";
@@ -371,7 +371,7 @@ namespace GeetestSDK
             return retString;
 
         }
-
+        //输入的两位的随机数字,解码出偏移量
         public int decodeRandBase(String challenge)
         {
             String baseStr = challenge.Substring(32, 2);
@@ -385,7 +385,7 @@ namespace GeetestSDK
             int result = tempList.ElementAt(0) * 36 + tempList.ElementAt(1);
             return result;
         }
-
+        //解码随机参数
         public int decodeResponse(String challenge, String str)
         {
             if (str.Length>100) return 0;
