@@ -1,4 +1,4 @@
-###目录
+﻿###目录
 * [文件描述](#1)
  * [核心SDK库](#1.1)
 * [搭建开发环境](#2)
@@ -24,6 +24,8 @@
 3. 直接运行项目
 
 <h4 id="4">发布日志</h4>
+[2.15.7.23.1](https://github.com/GeeTeam/gt-csharp-sdk/releases/tag/2.15.9.23.1)
+1.添加简单注释
 [2.15.7.23.1](https://github.com/GeeTeam/gt-csharp-sdk/releases/tag/2.15.7.23.1)
 1. 修复validate Bug
 [2.15.7.15.1](https://github.com/GeeTeam/gt-csharp-sdk/releases/tag/2.15.7.15.1)
