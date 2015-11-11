@@ -1,4 +1,4 @@
-﻿###目录
+###目录
 * [文件描述](#1)
  * [核心SDK库](#1.1)
 * [搭建开发环境](#2)
@@ -9,8 +9,8 @@
 <h4 id="1">文件描述</h4>
 注意：本项目提供的Demo的前端实现方法均是面向PC端的。 如果需要移动端的canvas功能，请参考canvas的前端文档。  
 
-[PC端前端文档](http://www.geetest.com/docs/sdk/build/html/sections/web_api.html)
-[Canvas前端文档](http://www.geetest.com/docs/sdk/build/html/sections/common_canvas_front.html)
+http://www.geetest.com/install/
+
 <h4 id="1.1">核心SDK库</h4>
 * GeetestLib.cs  
 	提供拼图行为验证功能
