@@ -15,7 +15,7 @@ namespace GeetestSDK
     public class GeetestLib
     {
         //SDK版本以及名称
-        public const String version = "2.15.11.11.1";
+        public const String version = "2.15.11.18.1";
         public const String sdkLang = "csharp";
        
         protected const String baseUrl = "api.geetest.com";
