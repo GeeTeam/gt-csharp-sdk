@@ -21,7 +21,6 @@ namespace demo
             GeetestLib geetest = new GeetestLib();
             geetest.CaptchaID = GeetestConfig.publicKey;
             geetest.PrivateKey = GeetestConfig.privateKey;
-            geetest.setGtSession(Session);
             String resStr = "";
             if (geetest.preProcess())
             {

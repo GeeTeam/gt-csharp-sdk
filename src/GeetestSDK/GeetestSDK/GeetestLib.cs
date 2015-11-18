@@ -89,20 +89,10 @@ namespace GeetestSDK
         {
             this.privateKey = privateKey;
         }
-        //将当前实例设置到session中
-        public void setGtSession(HttpSessionState session)
-        {
-            session.Add(GeetestLib.gtSessionKey, this);
-        }
         //极验服务器的gt-server状态值
         public void setGtServerStatusSession(HttpSessionState session, int statusCode)
         {
             session.Add(GeetestLib.gtServerStatusSessionKey, statusCode);
-        }
-        //获取session
-        public static GeetestLib getGtSession(HttpSessionState session)
-        {
-            return (GeetestLib) session.Contents[GeetestLib.gtSessionKey];
         }
         //获取gt-server状态值,0表示不正常，1表示正常
         public static int getGtServerStatusSession(HttpSessionState session)
