@@ -15,7 +15,7 @@ namespace GeetestSDK
     public class GeetestLib
     {
         //SDK版本以及名称
-        public const String version = "2.15.11.18.1";
+        public const String version = "2.0.0";
         public const String sdkLang = "csharp";
        
         protected const String baseUrl = "api.geetest.com";
@@ -36,7 +36,6 @@ namespace GeetestSDK
         private String host = apiUrl;
         private String productType = "embed";
         private String popupBtnID = "";
-        private String picID = "";
         
         private Boolean https = false;
         public const String successResult = "success";
@@ -89,24 +88,40 @@ namespace GeetestSDK
         {
             this.privateKey = privateKey;
         }
-        //极验服务器的gt-server状态值
+
+        /// <summary>
+        /// 设置极验服务器的gt-server状态值
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="statusCode">gt-server状态值,0表示不正常，1表示正常</param>
         public void setGtServerStatusSession(HttpSessionState session, int statusCode)
         {
             session.Add(GeetestLib.gtServerStatusSessionKey, statusCode);
         }
-        //获取gt-server状态值,0表示不正常，1表示正常
+        /// <summary>
+        /// 获取gt-server状态值,0表示不正常，1表示正常
+        /// </summary>
+        /// <param name="session">HttpSessionState实例</param>
+        /// <returns>一个int，0表示不正常，1表示正常</returns>
         public static int getGtServerStatusSession(HttpSessionState session)
         {
             return (int) session.Contents[GeetestLib.gtServerStatusSessionKey];
         }
 
+        /// <summary>
+        /// 生成随机数
+        /// </summary>
+        /// <returns>int</returns>
         public int getRandomNum()
         {
             Random rand =new Random();
             int randRes = rand.Next(100);
             return randRes;
         }
-        //生成动态前端源码
+        /// <summary>
+        /// 动态生成前端源码
+        /// </summary>
+        /// <returns>String 前端源码</returns>
         public String getGTApiUrl()
         {
             String frontSource = string.Format("<script type=\"text/javascript\" src=\"{0}/get.php?"
@@ -124,12 +139,19 @@ namespace GeetestSDK
             return frontSource;
         }
 
+        /// <summary>
+        /// 验证初始化预处理
+        /// </summary>
+        /// <returns>Boolean</returns>
         public Boolean preProcess()
         {
             if (this.register()) return true;
             return false;
         }
-        //预处理失败后的返回格式串
+        /// <summary>
+        /// 预处理失败后的返回格式串
+        /// </summary>
+        /// <returns>Json字符串</returns>
         public String getFailPreProcessRes()
         {
             int rand1 = this.getRandomNum();
@@ -142,14 +164,21 @@ namespace GeetestSDK
                  "\"success\":{0},\"gt\":\"{1}\",\"challenge\":\"{2}\"", 0,
                 this.captchaID, this.challenge)+"}";
         }
-        //预处理成功后的标准串
+        /// <summary>
+        /// 预处理成功后的标准串
+        /// </summary>
+        /// <returns>Json字符串</returns>
         public String getSuccessPreProcessRes()
         {
             return "{" + string.Format(
                 "\"success\":{0},\"gt\":\"{1}\",\"challenge\":\"{2}\"", 1, 
                 this.captchaID, this.challenge) + "}";
         }
-        //failback使用的验证方式
+        /// <summary>
+        /// failback模式的验证方式
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>验证结果</returns>
         public String failbackValidateRequest(HttpRequest request)
         {
             if (!this.requestIsLegal(request)) return GeetestLib.failResult;
@@ -176,7 +205,13 @@ namespace GeetestSDK
 
             return validateResult;
         }
-        //failback模式下，判断验证是否通过
+        /// <summary>
+        /// failback模式下，简单判断轨迹是否通过
+        /// </summary>
+        /// <param name="ans">答案位置</param>
+        /// <param name="full_bg_index"></param>
+        /// <param name="img_grp_index"></param>
+        /// <returns>轨迹验证结果</returns>
         private String validateFailImage(int ans, int full_bg_index, int img_grp_index)
         {
             const int thread = 3;
@@ -195,7 +230,11 @@ namespace GeetestSDK
             if (Math.Abs(ans - result) < thread) return GeetestLib.successResult;
             else return GeetestLib.failResult;
         }
-        //判断request参数是否合法
+        /// <summary>
+        /// 判断request参数是否合法
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Boolean</returns>
         private Boolean requestIsLegal(HttpRequest request)
         {
             String challenge = request.Params[GeetestLib.fnGeetestChallenge];
@@ -204,34 +243,12 @@ namespace GeetestSDK
             if (challenge.Equals(string.Empty) || validate.Equals(string.Empty) || seccode.Equals(string.Empty)) return false;
             return true;
         }
-        //旧的validate方法
-        public Boolean validate(HttpRequest request)
-        {
-            if (!this.requestIsLegal(request)) return false;
-            String path = "/validate.php";
-            String challenge = request.Params[GeetestLib.fnGeetestChallenge];
-            String validate = request.Params[GeetestLib.fnGeetestValidate];
-            String seccode = request.Params[GeetestLib.fnGeetestSeccode];
-            if (validate.Length > 0 && checkResultByPrivate(challenge, validate))
-            {
-                String query = "seccode=" + seccode + "&sdk=csharp_" + GeetestLib.version;
-                String response = "";
-                try
-                {
-                    response = postValidate(this.host, path, query, GeetestLib.hostPort);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-                if (response.Equals(md5Encode(seccode)))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        //增强版的验证信息,提供了更多的验证返回结果信息，以让客户服务器端有不同的数据处理。
+
+        /// <summary>
+        /// 向gt-server进行二次验证
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>String 二次验证结果</returns>
         public String enhencedValidateRequest(HttpRequest request)
         {
             if (!this.requestIsLegal(request)) return GeetestLib.failResult;
@@ -245,7 +262,7 @@ namespace GeetestSDK
                 String response = "";
                 try
                 {
-                    response = postValidate(this.host, path, query, GeetestLib.hostPort);
+                    response = postValidate(this.host, path, query);
                 }
                 catch (Exception e)
                 {
@@ -258,26 +275,11 @@ namespace GeetestSDK
             }
             return GeetestLib.failResult;
         }
-        //获取极验的服务器状态
-        public Boolean getGtServerStatus()
-        {
-            String path = "/check_status.php";
-            String url = this.host + path;
-            try
-            {
-                string retString = this.readContentFromGet(url);
-                if (retString == "ok") 
-                {
-                    return true;
-                }
-            }
-            catch
-            {
-                
-            }
-            return false;
-        }
-
+        /// <summary>
+        /// 进行GET请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns>String HTTP请求的结果</returns>
         private String readContentFromGet(String url)
         {
             try
@@ -299,6 +301,10 @@ namespace GeetestSDK
 
         }
         //向gt-server请求一个challenge
+        /// <summary>
+        /// 向gt-server请求一个challenge，并以此判断服务器状态
+        /// </summary>
+        /// <returns>Boolean 请求是否成功</returns>
         public Boolean register()
         {
             String path = "/register.php";
@@ -323,21 +329,38 @@ namespace GeetestSDK
             return false;
             
         }
-
+        /// <summary>
+        /// 向gt-server请求一个challenge
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="path"></param>
+        /// <param name="gt">captcha_id</param>
+        /// <returns>String challenge</returns>
         private String registerChallenge(String host, String path, String gt)
         {
             String url = host + path + "?gt=" + gt;
             string retString = this.readContentFromGet(url);
             return retString;
         }
-
+        /// <summary>
+        /// 二次验证先验判断，判断validate是否与privatekey challenge 吻合
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="validate"></param>
+        /// <returns>Boolean 判断结果</returns>
         private Boolean checkResultByPrivate(String origin, String validate)
         {
             String encodeStr = md5Encode(privateKey + "geetest" + origin);
             return validate.Equals(encodeStr);
         }
-
-        private String postValidate(String host, String path, String data, int port)
+        /// <summary>
+        /// 向gt-server发起二次验证请求
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="path"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private String postValidate(String host, String path, String data)
         {
             String url = host + path;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -361,7 +384,11 @@ namespace GeetestSDK
             return retString;
 
         }
-        //输入的两位的随机数字,解码出偏移量
+        /// <summary>
+        /// 解码偏移量
+        /// </summary>
+        /// <param name="challenge"></param>
+        /// <returns>int 偏移量</returns>
         public int decodeRandBase(String challenge)
         {
             String baseStr = challenge.Substring(32, 2);
@@ -375,7 +402,12 @@ namespace GeetestSDK
             int result = tempList.ElementAt(0) * 36 + tempList.ElementAt(1);
             return result;
         }
-        //解码随机参数
+        /// <summary>
+        /// 解码随机参数
+        /// </summary>
+        /// <param name="challenge"></param>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public int decodeResponse(String challenge, String str)
         {
             if (str.Length>100) return 0;
@@ -401,16 +433,11 @@ namespace GeetestSDK
             return res;
         }
 
-        //转为UTF8编码
-        private String fixEncoding(String str)
-        {
-            UTF8Encoding utf8 = new UTF8Encoding();
-            Byte[] encodedBytes = utf8.GetBytes(str);
-            String decodedString = utf8.GetString(encodedBytes);
-            return decodedString;
-        }
-
-        //md5 加密
+        /// <summary>
+        /// md5加密
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <returns>String 加密结果</returns>
         public String md5Encode(String plainText)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
