@@ -12,6 +12,9 @@ using System.IO;
 
 namespace GeetestSDK
 {
+    /// <summary>
+    /// GeetestLib
+    /// </summary>
     public class GeetestLib
     {
         //SDK版本以及名称
@@ -101,8 +104,8 @@ namespace GeetestSDK
         /// <summary>
         /// 获取gt-server状态值,0表示不正常，1表示正常
         /// </summary>
-        /// <param name="session">HttpSessionState实例</param>
-        /// <returns>一个int，0表示不正常，1表示正常</returns>
+        /// <param name="session">HttpSessionState</param>
+        /// <returns>int，0表示不正常，1表示正常</returns>
         public static int getGtServerStatusSession(HttpSessionState session)
         {
             return (int) session.Contents[GeetestLib.gtServerStatusSessionKey];
@@ -118,26 +121,6 @@ namespace GeetestSDK
             int randRes = rand.Next(100);
             return randRes;
         }
-        /// <summary>
-        /// 动态生成前端源码
-        /// </summary>
-        /// <returns>String 前端源码</returns>
-        public String getGTApiUrl()
-        {
-            String frontSource = string.Format("<script type=\"text/javascript\" src=\"{0}/get.php?"
-                        + "gt={1}&challenge={2}", this.host, this.captchaID, this.challenge);
-            if (this.productType.Equals("popup"))
-            {
-                frontSource += string.Format("&product={0}&popupbtnid={1}",
-                    this.productType, this.popupBtnID);
-            }
-            else
-            {
-                frontSource += string.Format("&product={0}", this.productType);
-            }
-            frontSource += "\"></script>";
-            return frontSource;
-        }
 
         /// <summary>
         /// 验证初始化预处理
@@ -151,7 +134,7 @@ namespace GeetestSDK
         /// <summary>
         /// 预处理失败后的返回格式串
         /// </summary>
-        /// <returns>Json字符串</returns>
+        /// <returns>String Json字符串</returns>
         public String getFailPreProcessRes()
         {
             int rand1 = this.getRandomNum();
