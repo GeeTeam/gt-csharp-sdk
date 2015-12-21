@@ -18,9 +18,7 @@ namespace demo
         }
         private String getCaptcha()
         {
-            GeetestLib geetest = new GeetestLib();
-            geetest.CaptchaID = GeetestConfig.publicKey;
-            geetest.PrivateKey = GeetestConfig.privateKey;
+            GeetestLib geetest = new GeetestLib(GeetestConfig.privateKey, GeetestConfig.publicKey);
             String resStr = "";
             if (geetest.preProcess())
             {
