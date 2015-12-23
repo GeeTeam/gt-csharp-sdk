@@ -63,6 +63,8 @@ ________
 
 发布日志
 _____________
+- `2.0.2 <https://github.com/GeeTeam/gt-csharp-sdk/releases/tag/v2.0.2>`_
+    - 修复Failback Bug
 - `2.0.1 <https://github.com/GeeTeam/gt-csharp-sdk/releases/tag/v2.0.1>`_
     - 完善注释
     - 添加API文档
