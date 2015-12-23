@@ -22,7 +22,7 @@ namespace GeetestSDK
         /// <summary>
         /// SDK版本号
         /// </summary>
-        public const String version = "2.0.1";
+        public const String version = "2.0.2";
         /// <summary>
         /// SDK开发语言
         /// </summary>
@@ -211,15 +211,13 @@ namespace GeetestSDK
             String challenge = request.Params[GeetestLib.fnGeetestChallenge];
             String validate = request.Params[GeetestLib.fnGeetestValidate];
             String seccode = request.Params[GeetestLib.fnGeetestSeccode];
-            if (!challenge.Equals(this.challenge)) return GeetestLib.failResult;
             String[] validateStr = validate.Split('_');
             String encodeAns = validateStr[0];
             String encodeFullBgImgIndex = validateStr[1];
             String encodeImgGrpIndex = validateStr[2];
-
-            int decodeAns = this.decodeResponse(this.challenge, encodeAns);
-            int decodeFullBgImgIndex = this.decodeResponse(this.challenge, encodeFullBgImgIndex);
-            int decodeImgGrpIndex = this.decodeResponse(this.challenge, encodeImgGrpIndex);
+            int decodeAns = this.decodeResponse(challenge, encodeAns);
+            int decodeFullBgImgIndex = this.decodeResponse(challenge, encodeFullBgImgIndex);
+            int decodeImgGrpIndex = this.decodeResponse(challenge, encodeImgGrpIndex);
 
             String validateResult = this.validateFailImage(decodeAns, decodeFullBgImgIndex, decodeImgGrpIndex);
             if (!validateResult.Equals(GeetestLib.failResult))
