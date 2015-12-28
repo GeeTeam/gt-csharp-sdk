@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Id="ca90b2e1-31a4-48be-ae58-43893d6a9f5b" Title="GeetestSDK" Url="html/c17e5006-4f1b-7258-de4d-cc5f4f1c2cb1.htm">
+    <HelpTOCNode Id="7f447226-0f2b-4b88-8174-7816ac42cd52" Title="GeetestLib Class" Url="html/4f875a27-ed47-1704-5cf1-44c722015afe.htm">
+      <HelpTOCNode Id="bae0fd26-874c-453d-8be0-e7f46cb1b22a" Title="GeetestLib Constructor " Url="html/7239dee8-36aa-4ebe-9ed0-7cbc943fb588.htm">
+        <HelpTOCNode Title="GeetestLib Constructor (String)" Url="html/6353e6c8-84e6-4e6d-bc86-8d0818f0be6f.htm" />
+        <HelpTOCNode Title="GeetestLib Constructor (String, String)" Url="html/7b267107-9128-e389-01f4-c43b55746254.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="bb9c4f01-ec2e-49ce-aefd-e94235f79be0" Title="GeetestLib Fields" Url="html/b37b5f4b-9e3d-8706-90c0-e83535c034d0.htm">
+        <HelpTOCNode Title="apiUrl Field" Url="html/6d96018f-6fb1-bf40-8f78-d2f368d89500.htm" />
+        <HelpTOCNode Title="baseUrl Field" Url="html/52659142-f34a-26c8-18de-3d49da1c9d3a.htm" />
+        <HelpTOCNode Title="failResult Field" Url="html/fd3f4a9f-8698-4056-6a34-cb68fb1fa9b7.htm" />
+        <HelpTOCNode Title="fnGeetestChallenge Field" Url="html/1e5febd8-6faa-b6e5-e73f-74d2e3e7d789.htm" />
+        <HelpTOCNode Title="fnGeetestSeccode Field" Url="html/0a44613c-d852-3383-fe2e-da4f8ca05c91.htm" />
+        <HelpTOCNode Title="fnGeetestValidate Field" Url="html/7e268c19-4df2-854a-6fbf-b3c516de38f3.htm" />
+        <HelpTOCNode Title="forbiddenResult Field" Url="html/0e065043-b9d4-2e91-3bab-e54d3f29950c.htm" />
+        <HelpTOCNode Title="gtServerStatusSessionKey Field" Url="html/a1cfbae6-c39d-3289-84e5-5c81dffd97c5.htm" />
+        <HelpTOCNode Title="gtSessionKey Field" Url="html/d8e09a85-c341-432a-ba74-e62320037b92.htm" />
+        <HelpTOCNode Title="hostPort Field" Url="html/59cb3c76-a795-3194-8e98-53f30acf7ed4.htm" />
+        <HelpTOCNode Title="httpsApiUrl Field" Url="html/561d69de-393c-9e10-93bc-2bf0f03ef90c.htm" />
+        <HelpTOCNode Title="sdkLang Field" Url="html/4b68cb96-b455-7ee0-17e2-2fb0a5738f6f.htm" />
+        <HelpTOCNode Title="successResult Field" Url="html/40b23c54-258f-5df6-2015-1b2a7ad8d06a.htm" />
+        <HelpTOCNode Title="version Field" Url="html/149f300d-56cd-f8e6-e19a-4cb580197d15.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="1adf43ae-2964-4fe3-ae6d-590f645f7e95" Title="GeetestLib Methods" Url="html/ec668521-d94a-2b6f-1864-1a69937f5e57.htm">
+        <HelpTOCNode Title="enhencedValidateRequest Method " Url="html/96aed80b-a159-78a1-70b2-7dea1ce5cf76.htm" />
+        <HelpTOCNode Title="failbackValidateRequest Method " Url="html/960e79ba-beee-52c5-23e1-ea9d0808ec77.htm" />
+        <HelpTOCNode Title="getFailPreProcessRes Method " Url="html/faf5712b-24b5-921e-5b10-5ed86d15fe53.htm" />
+        <HelpTOCNode Title="getGtServerStatusSession Method " Url="html/59e996c6-b946-9c06-5bc3-2370d2c238c6.htm" />
+        <HelpTOCNode Title="getSuccessPreProcessRes Method " Url="html/e7a12909-a1b0-6753-eb60-556322d92b8e.htm" />
+        <HelpTOCNode Title="preProcess Method " Url="html/23cc63a4-1f35-1dd1-7eb4-cb6543a84829.htm" />
+        <HelpTOCNode Title="setGtServerStatusSession Method " Url="html/392d4fc8-a3a5-f92e-887b-ad0d2e0e5361.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="785f6094-4a63-41d2-96f5-04e2758ac8e7" Title="GeetestLib Properties" Url="html/9569248c-6354-dd9f-0078-ad1c3b21cc5a.htm">
+        <HelpTOCNode Title="Challenge Property " Url="html/9d389984-1c2d-9a81-f0aa-1f56bee44c28.htm" />
+        <HelpTOCNode Title="Https Property " Url="html/82275c0a-413b-2c17-475e-8b4f06c7fcd3.htm" />
+        <HelpTOCNode Title="PopupBtnID Property " Url="html/d125e913-01e1-2e6f-3c58-8cf474021a3b.htm" />
+        <HelpTOCNode Title="ProductType Property " Url="html/7fbc3483-5ca7-70e8-9098-cae7eb7de7a6.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+</HelpTOC>
