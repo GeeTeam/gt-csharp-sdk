@@ -22,7 +22,7 @@ namespace GeetestSDK
         /// <summary>
         /// SDK版本号
         /// </summary>
-        public const String version = "2.0.2";
+        public const String version = "2.1.0";
         /// <summary>
         /// SDK开发语言
         /// </summary>
@@ -166,6 +166,16 @@ namespace GeetestSDK
         }
 
         /// <summary>
+        /// 验证初始化预处理，附带用户标识，将用户与验证联系起来
+        /// </summary>
+        /// <param name="userID">用户ID，标明此次验证的用户，在未来一系列的验证操作都会跟这个ID关联起来，可以为空，建议用户登录后传入用户的用户名或者标识</param>
+        /// <returns>初始化结果</returns>
+        public Boolean preProcess(String userID)
+        {
+            if (this.register(userID)) return true;
+            return false;
+        }
+        /// <summary>
         /// 验证初始化预处理
         /// </summary>
         /// <returns>初始化结果</returns>
@@ -174,6 +184,10 @@ namespace GeetestSDK
             if (this.register()) return true;
             return false;
         }
+        /// <summary>
+        /// 预处理失败后的返回格式串
+        /// </summary>
+        /// <returns>Json字符串</returns>
         /// <summary>
         /// 预处理失败后的返回格式串
         /// </summary>
@@ -257,6 +271,38 @@ namespace GeetestSDK
         }
 
         /// <summary>
+        /// 向gt-server进行二次验证,附带用户标识,将验证与验证用户联系起来
+        /// </summary>
+        /// <param name="request">HttpRequest</param>
+        /// <param name="userID">用户ID，标明此次验证的用户，如果与之前register的用户ID不一致即使轨迹判断通过，也会被封禁掉</param>
+        /// <returns>二次验证结果</returns>
+        public String enhencedValidateRequest(HttpRequest request, String userID)
+        {
+            if (!this.requestIsLegal(request)) return GeetestLib.failResult;
+            String path = "/validate.php";
+            String challenge = request.Params[GeetestLib.fnGeetestChallenge];
+            String validate = request.Params[GeetestLib.fnGeetestValidate];
+            String seccode = request.Params[GeetestLib.fnGeetestSeccode];
+            if (validate.Length > 0 && checkResultByPrivate(challenge, validate))
+            {
+                String query = "seccode=" + seccode + "&user_id=" + userID + "&sdk=csharp_" + GeetestLib.version;
+                String response = "";
+                try
+                {
+                    response = postValidate(this.host, path, query);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                if (response.Equals(md5Encode(seccode)))
+                {
+                    return GeetestLib.successResult;
+                }
+            }
+            return GeetestLib.failResult;
+        }
+        /// <summary>
         /// 向gt-server进行二次验证
         /// </summary>
         /// <param name="request">HttpRequest</param>
@@ -307,7 +353,7 @@ namespace GeetestSDK
            }
 
         }
-        private Boolean register()
+        private Boolean register(String userID)
         {
             String path = "/register.php";
             if (this.captchaID == null)
@@ -316,7 +362,7 @@ namespace GeetestSDK
             } 
             else
             {
-                String challenge = this.registerChallenge(this.host, path, this.captchaID);
+                String challenge = this.registerChallenge(path, this.captchaID, userID);
                 if (challenge.Length == 32)
                 {
                     this.challenge = challenge;
@@ -331,9 +377,33 @@ namespace GeetestSDK
             return false;
             
         }
-        private String registerChallenge(String host, String path, String gt)
+        private Boolean register()
         {
-            String url = host + path + "?gt=" + gt;
+            String path = "/register.php";
+            if (this.captchaID == null)
+            {
+                Console.WriteLine("publicKey is null!");
+            }
+            else
+            {
+                String challenge = this.registerChallenge(path, this.captchaID, userID);
+                if (challenge.Length == 32)
+                {
+                    this.challenge = challenge;
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Server regist challenge failed!");
+                }
+            }
+
+            return false;
+
+        }
+        private String registerChallenge(String path, String gt, String userID)
+        {
+            String url = this.host + path + "?gt=" + gt + "&user_id=" + userID;
             string retString = this.readContentFromGet(url);
             return retString;
         }

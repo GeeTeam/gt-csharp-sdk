@@ -18,7 +18,7 @@ namespace demo
             GeetestLib geetest = new GeetestLib(GeetestConfig.privateKey, GeetestConfig.publicKey);
             int gt_server_status_code = GeetestLib.getGtServerStatusSession(Session);
             String result = "";
-            if (gt_server_status_code == 1) result = geetest.enhencedValidateRequest(Request);
+            if (gt_server_status_code == 1) result = geetest.enhencedValidateRequest(Request, "test");
             else result = geetest.failbackValidateRequest(Request);
             Response.Write(result);
         }

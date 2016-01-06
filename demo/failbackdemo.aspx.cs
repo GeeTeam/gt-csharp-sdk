@@ -20,7 +20,7 @@ namespace demo
         {
             GeetestLib geetest = new GeetestLib(GeetestConfig.privateKey, GeetestConfig.publicKey);
             String resStr = "";
-            if (geetest.preProcess())
+            if (geetest.preProcess("test"))
             {
                 resStr = geetest.getSuccessPreProcessRes();
                 geetest.setGtServerStatusSession(Session, 1);
