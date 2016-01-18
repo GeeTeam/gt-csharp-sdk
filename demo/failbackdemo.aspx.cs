@@ -18,19 +18,10 @@ namespace demo
         }
         private String getCaptcha()
         {
-            GeetestLib geetest = new GeetestLib(GeetestConfig.privateKey, GeetestConfig.publicKey);
-            String resStr = "";
-            if (geetest.preProcess())
-            {
-                resStr = geetest.getSuccessPreProcessRes();
-                geetest.setGtServerStatusSession(Session, 1);
-            }
-            else
-            {
-                resStr = geetest.getFailPreProcessRes();
-                geetest.setGtServerStatusSession(Session, 0);
-            }
-            return resStr;
+            GeetestLib geetest = new GeetestLib(GeetestConfig.publicKey, GeetestConfig.privateKey);
+            Byte gtServerStatus = geetest.preProcess();
+            Session[GeetestLib.gtServerStatusSessionKey] = gtServerStatus;
+            return geetest.ResponseStr;
         }
     }
 }

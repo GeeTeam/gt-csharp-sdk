@@ -15,11 +15,14 @@ namespace demo
         }
         protected void submitBtn_Click(object sender, EventArgs e)
         {
-            GeetestLib geetest = new GeetestLib(GeetestConfig.privateKey, GeetestConfig.publicKey);
-            int gt_server_status_code = GeetestLib.getGtServerStatusSession(Session);
+            GeetestLib geetest = new GeetestLib(GeetestConfig.publicKey, GeetestConfig.privateKey);
+            Byte gt_server_status_code = (Byte) Session[GeetestLib.gtServerStatusSessionKey];
             String result = "";
-            if (gt_server_status_code == 1) result = geetest.enhencedValidateRequest(Request);
-            else result = geetest.failbackValidateRequest(Request);
+            String challenge = Request.Form.Get(GeetestLib.fnGeetestChallenge);
+            String validate = Request.Form.Get(GeetestLib.fnGeetestValidate);
+            String seccode = Request.Form.Get(GeetestLib.fnGeetestSeccode);
+            if (gt_server_status_code == 1) result = geetest.enhencedValidateRequest(challenge, validate, seccode);
+            else result = geetest.failbackValidateRequest(challenge, validate, seccode);
             Response.Write(result);
         }
     }
