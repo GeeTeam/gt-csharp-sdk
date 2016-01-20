@@ -66,17 +66,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="failbackdemo.aspx" />
+    <Content Include="getcaptcha.aspx" />
     <Content Include="index.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="failbackdemo.aspx.cs">
-      <DependentUpon>failbackdemo.aspx</DependentUpon>
+    <Compile Include="getcaptcha.aspx.cs">
+      <DependentUpon>getcaptcha.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="failbackdemo.aspx.designer.cs">
-      <DependentUpon>failbackdemo.aspx</DependentUpon>
+    <Compile Include="getcaptcha.aspx.designer.cs">
+      <DependentUpon>getcaptcha.aspx</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

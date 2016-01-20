@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="failbackdemo.aspx.cs" Inherits="demo.failbackdemo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="getcaptcha.aspx.cs" Inherits="demo.GetCaptcha" %>
 
 <!DOCTYPE html>
 

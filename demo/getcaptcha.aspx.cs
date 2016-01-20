@@ -8,7 +8,7 @@ using GeetestSDK;
 
 namespace demo
 {
-    public partial class failbackdemo : System.Web.UI.Page
+    public partial class GetCaptcha : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -10,7 +10,7 @@
 namespace demo {
     
     
-    public partial class failback_login {
+    public partial class Validate {
         
         /// <summary>
         /// form1 控件。

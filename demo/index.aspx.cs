@@ -8,7 +8,7 @@ using GeetestSDK;
 
 namespace demo
 {
-    public partial class failback_login : System.Web.UI.Page
+    public partial class Validate : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
