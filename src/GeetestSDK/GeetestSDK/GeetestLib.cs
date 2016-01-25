@@ -17,7 +17,7 @@ namespace GeetestSDK
         /// <summary>
         /// SDK版本号
         /// </summary>
-        public const String version = "3.0.0";
+        public const String version = "3.1.0";
         /// <summary>
         /// SDK开发语言
         /// </summary>
@@ -137,6 +137,7 @@ namespace GeetestSDK
         /// </summary>
         private void getSuccessPreProcessRes(String challenge)
         {
+            challenge = this.md5Encode(challenge + this.privateKey);
             this.responseStr ="{" + string.Format(
                 "\"success\":{0},\"gt\":\"{1}\",\"challenge\":\"{2}\"", 1, 
                 this.captchaID, challenge) + "}";
