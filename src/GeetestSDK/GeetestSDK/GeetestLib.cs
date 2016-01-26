@@ -57,11 +57,11 @@ namespace GeetestSDK
         /// <summary>
         /// 验证成功结果字符串
         /// </summary>
-        public const String successResult = "success";
+        public const int successResult = 1;
         /// <summary>
         /// 证结失败验果字符串
         /// </summary>
-        public const String failResult = "fail";
+        public const int failResult = 0;
         /// <summary>
         /// 判定为机器人结果字符串
         /// </summary>
@@ -147,7 +147,7 @@ namespace GeetestSDK
         /// <param name="validate">failback模式下用于与challenge一起解码答案， 判断验证是否正确</param>
         /// <param name="seccode">failback模式下，其实是个没用的参数</param>
         /// <returns>验证结果</returns>
-        public String failbackValidateRequest(String challenge, String validate, String seccode)
+        public int failbackValidateRequest(String challenge, String validate, String seccode)
         {
             if (!this.requestIsLegal(challenge, validate, seccode)) return GeetestLib.failResult;
             String[] validateStr = validate.Split('_');
@@ -157,10 +157,10 @@ namespace GeetestSDK
             int decodeAns = this.decodeResponse(challenge, encodeAns);
             int decodeFullBgImgIndex = this.decodeResponse(challenge, encodeFullBgImgIndex);
             int decodeImgGrpIndex = this.decodeResponse(challenge, encodeImgGrpIndex);
-            String validateResult = this.validateFailImage(decodeAns, decodeFullBgImgIndex, decodeImgGrpIndex);
+            int validateResult = this.validateFailImage(decodeAns, decodeFullBgImgIndex, decodeImgGrpIndex);
             return validateResult;
         }
-        private String validateFailImage(int ans, int full_bg_index, int img_grp_index)
+        private int validateFailImage(int ans, int full_bg_index, int img_grp_index)
         {
             const int thread = 3;
             String full_bg_name = this.md5Encode(full_bg_index + "").Substring(0, 10);
@@ -191,7 +191,7 @@ namespace GeetestSDK
         /// <param name="validate">拖动完成后server端返回的验证结果标识字符串</param>
         /// <param name="seccode">验证结果的校验码，如果gt-server返回的不与这个值相等则表明验证失败</param>
         /// <returns>二次验证结果</returns>
-        public String enhencedValidateRequest(String challenge, String validate, String seccode)
+        public int enhencedValidateRequest(String challenge, String validate, String seccode)
         {
             if (!this.requestIsLegal(challenge, validate, seccode)) return GeetestLib.failResult;
             if (validate.Length > 0 && checkResultByPrivate(challenge, validate))

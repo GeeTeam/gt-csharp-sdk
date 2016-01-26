@@ -17,13 +17,14 @@ namespace demo
         {
             GeetestLib geetest = new GeetestLib(GeetestConfig.publicKey, GeetestConfig.privateKey);
             Byte gt_server_status_code = (Byte) Session[GeetestLib.gtServerStatusSessionKey];
-            String result = "";
+            int result = 0;
             String challenge = Request.Form.Get(GeetestLib.fnGeetestChallenge);
             String validate = Request.Form.Get(GeetestLib.fnGeetestValidate);
             String seccode = Request.Form.Get(GeetestLib.fnGeetestSeccode);
             if (gt_server_status_code == 1) result = geetest.enhencedValidateRequest(challenge, validate, seccode);
             else result = geetest.failbackValidateRequest(challenge, validate, seccode);
-            Response.Write(result);
+            if (result == 1) Response.Write("success");
+            else Response.Write("fail");
         }
     }
 }
