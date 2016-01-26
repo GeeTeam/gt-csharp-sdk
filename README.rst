@@ -1,7 +1,7 @@
 Gt C# SDK
 =========
 
-极验验证　C#　SDK,支持.Net Framework3.5及以上版本．本项目提供的Demo的前端实现方法均是面向PC端的。 如果需要移动端的canvas功能，请参考canvas的 `前端文档 <http://www.geetest.com/install/>`_.
+极验验证　C#　SDK,支持.Net Framework3.5及以上版本．本项目提供的Demo的前端实现方法均是面向PC端的。 本项目是面向服务器端的，具体使用可以参考我们的 `文档 <http://www.geetest.com/install/sections/idx-server-sdk.html>`_ ,客户端相关开发请参考我们的 `前端文档 <http://www.geetest.com/install/>`_.
 
 开发环境
 ________
@@ -24,51 +24,52 @@ ________
 
 .. code-block:: csharp
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-    using GeetestSDK;
-    namespace mysite
-    {
-        public partial class Site : System.Web.UI.Page
-        {
-            protected void Page_Load(object sender, EventArgs e)
-            {
-                Response.ContentType = "application/json";
-                Response.Write(getCaptcha());
-                Response.End();
-            }
-            private String getCaptcha()
-            {
-                GeetestLib geetest = new GeetestLib("你的私钥",　"你的公钥");
-                String resStr = "";
-                if (geetest.preProcess())
-                {
-                    resStr = geetest.getSuccessPreProcessRes();
-                    geetest.setGtServerStatusSession(Session, 1);
-                }
-                else　//gt-server宕机情况下触发,我们提供了一套failback方案,你也可以换成你自己的方案
-                {
-                    resStr = geetest.getFailPreProcessRes();
-                    geetest.setGtServerStatusSession(Session, 0);
-                }
-                return resStr;
-            }
-        }
-    }
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Web;
+	using System.Web.UI;
+	using System.Web.UI.WebControls;
+	using GeetestSDK;
+
+	namespace demo
+	{
+	    public partial class GetCaptcha : System.Web.UI.Page
+	    {
+	        protected void Page_Load(object sender, EventArgs e)
+	        {
+	            Response.ContentType = "application/json";
+	            Response.Write(getCaptcha());
+	            Response.End();
+	        }
+	        private String getCaptcha()
+	        {
+	            GeetestLib geetest = new GeetestLib(GeetestConfig.publicKey, GeetestConfig.privateKey);
+	            Byte gtServerStatus = geetest.preProcess();
+	            Session[GeetestLib.gtServerStatusSessionKey] = gtServerStatus;
+	            return geetest.getResponseStr();
+	        }
+	    }
+	}
 
 
 发布日志
-_____________
-- `2.0.2 <https://github.com/GeeTeam/gt-csharp-sdk/releases/tag/v2.0.2>`_
+-----------------
++ 3.1.1
+
+ - 统一接口
+
++ 3.1.0
+
+ - 添加challenge加密特性，使验证更安全， 老版本更新请先联系管理员
+
++ 2.0.2
     - 修复Failback Bug
-- `2.0.1 <https://github.com/GeeTeam/gt-csharp-sdk/releases/tag/v2.0.1>`_
+
++ 2.0.1 
     - 完善注释
     - 添加API文档
     - 修改Demo
-- `2.0.0 <https://github.com/GeeTeam/gt-csharp-sdk/releases/tag/v2.0.0>`_
++ 2.0.0
     - 去除旧的接口
     - 添加注释

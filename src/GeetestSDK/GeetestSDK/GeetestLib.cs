@@ -17,7 +17,7 @@ namespace GeetestSDK
         /// <summary>
         /// SDK版本号
         /// </summary>
-        public const String version = "3.1.0";
+        public const String version = "3.1.1";
         /// <summary>
         /// SDK开发语言
         /// </summary>
@@ -66,13 +66,7 @@ namespace GeetestSDK
         /// 判定为机器人结果字符串
         /// </summary>
         public const String forbiddenResult = "forbidden";
-        /// <summary>
-        /// 获取本次验证初始化返回字符串, 无法Set
-        /// </summary>
-        public String ResponseStr
-        {
-            get { return this.responseStr; }
-        }
+
         /// <summary>
         /// GeetestLib构造函数
         /// </summary>
@@ -117,6 +111,10 @@ namespace GeetestSDK
 
             return 0;
 
+        }
+        public String getResponseStr()
+        {
+            return this.responseStr;
         }
         /// <summary>
         /// 预处理失败后的返回格式串

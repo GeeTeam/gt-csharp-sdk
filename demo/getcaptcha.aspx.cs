@@ -21,7 +21,7 @@ namespace demo
             GeetestLib geetest = new GeetestLib(GeetestConfig.publicKey, GeetestConfig.privateKey);
             Byte gtServerStatus = geetest.preProcess();
             Session[GeetestLib.gtServerStatusSessionKey] = gtServerStatus;
-            return geetest.ResponseStr;
+            return geetest.getResponseStr();
         }
     }
 }
