@@ -7,7 +7,7 @@ namespace demo
 {
     public class GeetestConfig
     {
-        public const String publicKey = "a40fd3b0d712165c5d13e6f747e948d4";
-        public const String privateKey = "0f1a37e33c9ed10dd2e133fe2ae9c459";
+        public const String publicKey = "b46d1900d0a894591916ea94ea91bd2c";
+        public const String privateKey = "36fc3fe98530eea08dfc6ce76e3d24c4";
     }
 }
