@@ -17,7 +17,7 @@ namespace GeetestSDK
         /// <summary>
         /// SDK版本号
         /// </summary>
-        public const String version = "3.1.1";
+        public const String version = "3.2.0";
         /// <summary>
         /// SDK开发语言
         /// </summary>
@@ -50,6 +50,7 @@ namespace GeetestSDK
         /// 极验验证二次验证表单数据 Seccode
         /// </summary>
         public const String fnGeetestSeccode = "geetest_seccode";
+        private String userID = "";
         private String responseStr = "";
         private String captchaID = "";
         private String privateKey = "";
@@ -96,6 +97,31 @@ namespace GeetestSDK
             }
             else
             {
+                String challenge = this.registerChallenge();
+                if (challenge.Length == 32)
+                {
+                    this.getSuccessPreProcessRes(challenge);
+                    return 1;
+                }
+                else
+                {
+                    this.getFailPreProcessRes();
+                    Console.WriteLine("Server regist challenge failed!");
+                }
+            }
+
+            return 0;
+
+        }
+        public Byte preProcess(String userID)
+        {
+            if (this.captchaID == null)
+            {
+                Console.WriteLine("publicKey is null!");
+            }
+            else
+            {
+                this.userID = userID;
                 String challenge = this.registerChallenge();
                 if (challenge.Length == 32)
                 {
@@ -213,6 +239,28 @@ namespace GeetestSDK
             }
             return GeetestLib.failResult;
         }
+        public int enhencedValidateRequest(String challenge, String validate, String seccode, String userID)
+        {
+            if (!this.requestIsLegal(challenge, validate, seccode)) return GeetestLib.failResult;
+            if (validate.Length > 0 && checkResultByPrivate(challenge, validate))
+            {
+                String query = "seccode=" + seccode + "&user_id=" + userID + "&sdk=csharp_" + GeetestLib.version;
+                String response = "";
+                try
+                {
+                    response = postValidate(query);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                if (response.Equals(md5Encode(seccode)))
+                {
+                    return GeetestLib.successResult;
+                }
+            }
+            return GeetestLib.failResult;
+        }
         private String readContentFromGet(String url)
         {
             try
@@ -235,7 +283,15 @@ namespace GeetestSDK
         }
         private String registerChallenge()
         {
-            String url = string.Format("{0}{1}?gt={2}", GeetestLib.apiUrl, GeetestLib.registerUrl, this.captchaID);
+            String url = "";
+            if (this.Equals(string.Empty))
+            {
+                url = string.Format("{0}{1}?gt={2}", GeetestLib.apiUrl, GeetestLib.registerUrl, this.captchaID);
+            }
+            else
+            {
+                url = string.Format("{0}{1}?gt={2}&user_id={3}", GeetestLib.apiUrl, GeetestLib.registerUrl, this.captchaID, this.userID);
+            }
             string retString = this.readContentFromGet(url);
             return retString;
         }

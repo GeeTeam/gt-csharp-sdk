@@ -19,8 +19,10 @@ namespace demo
         private String getCaptcha()
         {
             GeetestLib geetest = new GeetestLib(GeetestConfig.publicKey, GeetestConfig.privateKey);
-            Byte gtServerStatus = geetest.preProcess();
+            String userID = "test";
+            Byte gtServerStatus = geetest.preProcess(userID);
             Session[GeetestLib.gtServerStatusSessionKey] = gtServerStatus;
+            Session["userID"] = userID;
             return geetest.getResponseStr();
         }
     }
