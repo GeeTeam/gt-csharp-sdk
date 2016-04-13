@@ -284,7 +284,7 @@ namespace GeetestSDK
         private String registerChallenge()
         {
             String url = "";
-            if (this.Equals(string.Empty))
+            if (string.Empty.Equals(this.userID))
             {
                 url = string.Format("{0}{1}?gt={2}", GeetestLib.apiUrl, GeetestLib.registerUrl, this.captchaID);
             }
